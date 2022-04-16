@@ -1,7 +1,5 @@
 import { Page } from "../components/Page";
 
-interface DashboardProps {}
-
-export const Dashboard: React.FC<DashboardProps> = (props) => (
+export const Dashboard: React.FC = () => (
   <Page title="Dashboard">Dashboard</Page>
 );

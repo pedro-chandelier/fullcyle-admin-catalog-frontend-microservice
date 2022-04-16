@@ -5,7 +5,7 @@ import { routes } from "../../routes";
 import { Link } from "react-router-dom";
 import { MyRouteProps } from "../../routes/index";
 
-const routesList = ["dashboard", "categories.list"];
+const routesList = ["dashboard", "categories.list", "categories.create"];
 const menuRoutes = routes.filter((route) => routesList.includes(route.name));
 
 export const Menu: React.FC = () => {
@@ -36,13 +36,14 @@ export const Menu: React.FC = () => {
         open={!!anchorEl}
         onClose={handleClose}
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        transformOrigin={{ vertical: "top", horizontal: "center" }}
       >
         {routesList.map((routeName) => {
           const route = menuRoutes.find(
             (r) => r.name === routeName
           ) as MyRouteProps;
+
           return (
             <MenuItem
               key={routeName}
@@ -50,7 +51,7 @@ export const Menu: React.FC = () => {
               to={route.path as string}
               onClick={handleClose}
             >
-              Categories
+              {route.label}
             </MenuItem>
           );
         })}

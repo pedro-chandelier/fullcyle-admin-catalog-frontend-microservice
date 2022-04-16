@@ -1,11 +1,18 @@
 import { IconButton, Menu as MuiMenu, MenuItem } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { useState } from "react";
+import { routes } from "../../routes";
+import { Link } from "react-router-dom";
+import { MyRouteProps } from "../../routes/index";
+
+const routesList = ["dashboard", "categories.list"];
+const menuRoutes = routes.filter((route) => routesList.includes(route.name));
 
 export const Menu: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+
   function handleOpen(ev: any): void {
-    setAnchorEl(ev);
+    setAnchorEl(ev.currentTarget);
   }
 
   function handleClose(): void {
@@ -29,8 +36,24 @@ export const Menu: React.FC = () => {
         open={!!anchorEl}
         onClose={handleClose}
         anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <MenuItem>Categories</MenuItem>
+        {routesList.map((routeName) => {
+          const route = menuRoutes.find(
+            (r) => r.name === routeName
+          ) as MyRouteProps;
+          return (
+            <MenuItem
+              key={routeName}
+              component={Link}
+              to={route.path as string}
+              onClick={handleClose}
+            >
+              Categories
+            </MenuItem>
+          );
+        })}
       </MuiMenu>
     </>
   );
